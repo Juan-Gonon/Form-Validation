@@ -35,6 +35,10 @@ const mensajeError = {
     nacimiento:{
         valueMissing : "Este campo no puede esta vacío",
         customError: "Debes tener al menos 18 años de edad"
+    },
+    number:{
+        valueMissing : "Este campo no puede estar vacío",
+        patternMismatch: "El formato requerido es xxxxxxxxxx"
     }
 }
 
@@ -48,7 +52,6 @@ const typeErrores = [
     "typeMismatch",
     "patternMismatch",
     "customError"
-
 ]
 
 
@@ -60,14 +63,7 @@ function mostrarMensajeError(type, input){
 
     typeErrores.forEach((error)=>{
         if(input.validity[error]){
-            console.log(error);
-            console.log(input.validity[error])
-            console.log(mensajeError[type][error])
-
             mensaje = mensajeError[type][error];
-
-
-
         }
     })
 
