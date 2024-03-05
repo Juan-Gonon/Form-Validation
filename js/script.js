@@ -1,5 +1,5 @@
 export function valida(input){
-    const tipoInput = input.dataset.birth;
+    const tipoInput = input.dataset.tipo;
     console.log(tipoInput)
 
 
