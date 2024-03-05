@@ -7,12 +7,14 @@ export function valida(input){
         validadores[tipoInput](input)
     }
 
-    console.log(input.parentElement)
+    // console.log(input.parentElement)
 
-    if(input.validity.valid){
-        input.parentElement.classList.remove("input-container--invalid");
-    }else{
+    if(!input.validity.valid){
         input.parentElement.classList.add("input-container--invalid");
+        input.parentElement.querySelector(".input-message-error").innerText = mostrarMensajeError(tipoInput, input)
+        console.log(input.parentElement.querySelector(".input-message-error"))
+    }else{
+        input.parentElement.classList.remove("input-container--invalid");
     }
 
 
@@ -20,13 +22,14 @@ export function valida(input){
 
 const mensajeError = {
     name: {
-        valueMissing : "Este campo no puede esta vacío"
+        valueMissing : "El campo nombre no puede esta vacío"
     },
     email:{
-        typeMismatch : "El correo no es válido"
+        valueMissing : "El campo email no puede esta vacío",
+        typeMismatch : "El campo email no es válido"
     },
     password:{
-        valueMissing : "Este campo no puede esta vacío",
+        valueMissing : "El campo password no puede esta vacío",
         patternMismatch : "Al menos 6 caracteres, máximo 12"
     },
     nacimiento:{
@@ -38,6 +41,39 @@ const mensajeError = {
 const validadores = {
     nacimiento: (input) => validarDate(input)
 }
+
+
+const typeErrores = [
+    "valueMissing",
+    "typeMismatch",
+    "patternMismatch",
+    "customError"
+
+]
+
+
+
+function mostrarMensajeError(type, input){
+
+    let mensaje = "";
+    console.log(input)
+
+    typeErrores.forEach((error)=>{
+        if(input.validity[error]){
+            console.log(error);
+            console.log(input.validity[error])
+            console.log(mensajeError[type][error])
+
+            mensaje = mensajeError[type][error];
+
+
+
+        }
+    })
+
+    return mensaje;
+}
+
 
 
 function validarDate(input){
